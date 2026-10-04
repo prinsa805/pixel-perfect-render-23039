@@ -76,7 +76,7 @@ function AddTrade() {
   const save = useMutation({
     mutationFn: async () => {
       const p = schema.safeParse({ symbol: f.symbol, entry_price: num(f.entry_price), quantity: num(f.quantity) });
-      if (!p.success) throw new Error(p.error.issues[0].message);
+      if (!p.success) throw new Error(p.error.issues[0]?.message ?? "Invalid input");
       const row = {
         trade_date: f.trade_date, trade_time: f.trade_time || null, exchange: f.exchange, symbol: f.symbol.trim().toUpperCase(),
         segment: f.segment, direction: f.direction, session: f.session, entry_price: p.data.entry_price, exit_price: num(f.exit_price),

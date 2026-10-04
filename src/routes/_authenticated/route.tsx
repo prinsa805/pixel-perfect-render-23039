@@ -33,7 +33,7 @@ function IstClock() {
     return () => clearInterval(id);
   }, []);
   const [h, m] = t.split(":").map(Number);
-  const mins = h * 60 + m;
+  const mins = (h ?? 0) * 60 + (m ?? 0);
   const day = new Date().toLocaleDateString("en-US", { timeZone: "Asia/Kolkata", weekday: "short" });
   const open = !["Sat", "Sun"].includes(day) && mins >= 555 && mins <= 930;
   return (

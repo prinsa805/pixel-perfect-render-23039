@@ -50,7 +50,7 @@ function AuthPage() {
         return setMode("signin");
       }
       const p = schema.safeParse({ email, password });
-      if (!p.success) return toast.error(p.error.issues[0].message);
+      if (!p.success) return toast.error(p.error.issues[0]?.message ?? "Invalid input");
       if (mode === "signup") {
         const { data, error } = await supabase.auth.signUp({
           email: p.data.email,

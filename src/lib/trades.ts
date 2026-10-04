@@ -86,17 +86,19 @@ export function computeStats(all: Trade[], capital: number) {
 
   let equity = capital, peak = capital, maxDD = 0, maxDDPct = 0;
   const curve = trades.map((t, i) => {
-    equity += pnls[i];
+    const pv = pnls[i] ?? 0;
+    equity += pv;
     peak = Math.max(peak, equity);
     const dd = peak - equity;
     if (dd > maxDD) { maxDD = dd; maxDDPct = peak ? (dd / peak) * 100 : 0; }
-    return { idx: i + 1, date: t.trade_date, equity: Math.round(equity), peak: Math.round(peak), drawdown: -Math.round(dd), pnl: Math.round(pnls[i]) };
+    return { idx: i + 1, date: t.trade_date, equity: Math.round(equity), peak: Math.round(peak), drawdown: -Math.round(dd), pnl: Math.round(pv) };
   });
 
   let winStreak = 0, lossStreak = 0;
   for (let i = pnls.length - 1; i >= 0; i--) {
-    if (pnls[i] > 0 && lossStreak === 0) winStreak++;
-    else if (pnls[i] < 0 && winStreak === 0) lossStreak++;
+    const v = pnls[i] ?? 0;
+    if (v > 0 && lossStreak === 0) winStreak++;
+    else if (v < 0 && winStreak === 0) lossStreak++;
     else break;
   }
 
