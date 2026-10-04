@@ -14,7 +14,105 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          created_at: string
+          default_risk_pct: number
+          display_name: string | null
+          id: string
+          starting_capital: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          default_risk_pct?: number
+          display_name?: string | null
+          id: string
+          starting_capital?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          default_risk_pct?: number
+          display_name?: string | null
+          id?: string
+          starting_capital?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      trades: {
+        Row: {
+          charges: number
+          created_at: string
+          direction: string
+          emotion: string | null
+          entry_price: number
+          exchange: string
+          exit_price: number | null
+          id: string
+          mistakes: string | null
+          notes: string | null
+          quantity: number
+          rating: number | null
+          segment: string
+          session: string
+          stop_loss: number | null
+          strategy: string | null
+          symbol: string
+          take_profit: number | null
+          trade_date: string
+          trade_time: string | null
+          user_id: string
+        }
+        Insert: {
+          charges?: number
+          created_at?: string
+          direction?: string
+          emotion?: string | null
+          entry_price: number
+          exchange?: string
+          exit_price?: number | null
+          id?: string
+          mistakes?: string | null
+          notes?: string | null
+          quantity?: number
+          rating?: number | null
+          segment?: string
+          session?: string
+          stop_loss?: number | null
+          strategy?: string | null
+          symbol: string
+          take_profit?: number | null
+          trade_date?: string
+          trade_time?: string | null
+          user_id?: string
+        }
+        Update: {
+          charges?: number
+          created_at?: string
+          direction?: string
+          emotion?: string | null
+          entry_price?: number
+          exchange?: string
+          exit_price?: number | null
+          id?: string
+          mistakes?: string | null
+          notes?: string | null
+          quantity?: number
+          rating?: number | null
+          segment?: string
+          session?: string
+          stop_loss?: number | null
+          strategy?: string | null
+          symbol?: string
+          take_profit?: number | null
+          trade_date?: string
+          trade_time?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
