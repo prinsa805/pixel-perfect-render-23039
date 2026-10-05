@@ -1,7 +1,7 @@
 import { createFileRoute, Link, Outlet, redirect, useNavigate, useRouter } from "@tanstack/react-router";
 import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { LogOut, Plus } from "lucide-react";
+import { BarChart3, BookOpen, ChartNoAxesCombined, LogOut, Plus, Settings } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Glow, Logo } from "@/components/Glow";
 import { profileQuery } from "@/lib/trades";
@@ -17,10 +17,10 @@ export const Route = createFileRoute("/_authenticated")({
 });
 
 const NAV = [
-  { to: "/dashboard", label: "Dashboard" },
-  { to: "/trades", label: "Trades" },
-  { to: "/analytics", label: "Analytics" },
-  { to: "/settings", label: "Settings" },
+  { to: "/dashboard", label: "Dashboard", icon: BarChart3 },
+  { to: "/trades", label: "Trades", icon: BookOpen },
+  { to: "/analytics", label: "Analytics", icon: ChartNoAxesCombined },
+  { to: "/settings", label: "Settings", icon: Settings },
 ] as const;
 
 function IstClock() {
@@ -37,7 +37,7 @@ function IstClock() {
   const day = new Date().toLocaleDateString("en-US", { timeZone: "Asia/Kolkata", weekday: "short" });
   const open = !["Sat", "Sun"].includes(day) && mins >= 555 && mins <= 930;
   return (
-    <div className="hidden items-center gap-2 rounded-full border border-border bg-glass px-3 py-2 md:flex">
+    <div className="hidden items-center gap-2 border border-border bg-primary/5 px-3 py-2 font-mono md:flex">
       <span className={`size-1.5 rounded-full ${open ? "animate-pulse bg-up" : "bg-muted-foreground"}`} />
       <span className="text-xs text-muted-foreground">NSE {open ? "Open" : "Closed"} · {t} IST</span>
     </div>
@@ -60,35 +60,37 @@ function AppShell() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="scanlines relative min-h-screen overflow-hidden p-2 sm:p-4">
       <Glow />
-      <div className="relative mx-auto max-w-[1400px] px-4 py-6 md:px-8 md:py-8">
-        <header className="mb-8 flex flex-wrap items-center justify-between gap-4">
+      <div className="terminal-frame relative mx-auto min-h-[calc(100vh-1rem)] max-w-[1600px] bg-background/95 sm:min-h-[calc(100vh-2rem)]">
+        <div className="flex h-7 items-center justify-between border-b border-border bg-primary/5 px-3 font-mono text-[8px] uppercase text-muted-foreground sm:px-5"><span>ALCOVE // COMMAND_DECK</span><span className="hidden sm:block">SECURE SESSION · CLOUD SYNC ACTIVE</span></div>
+        <header className="flex flex-wrap items-center justify-between gap-4 border-b border-border px-4 py-4 sm:px-6">
           <Link to="/dashboard"><Logo /></Link>
-          <nav className="order-3 flex w-full items-center gap-1 overflow-x-auto text-sm md:order-none md:w-auto">
+          <nav className="order-3 flex w-full items-center overflow-x-auto border border-border font-mono text-[10px] uppercase md:order-none md:w-auto">
             {NAV.map((n) => (
               <Link
                 key={n.to}
                 to={n.to}
-                className="whitespace-nowrap rounded-full px-4 py-2 text-muted-foreground hover:text-foreground"
-                activeProps={{ className: "bg-secondary !text-foreground font-medium" }}
+                className="flex items-center gap-2 whitespace-nowrap border-r border-border px-4 py-2.5 text-muted-foreground last:border-r-0 hover:bg-primary/5 hover:text-foreground"
+                activeProps={{ className: "bg-primary/10 !text-primary font-medium" }}
               >
-                {n.label}
+                <n.icon className="size-3.5" />{n.label}
               </Link>
             ))}
           </nav>
           <div className="flex items-center gap-3">
             <IstClock />
-            <Link to="/trades/new" className="hidden items-center gap-1 rounded-full bg-cta px-4 py-2 text-sm font-semibold sm:inline-flex">
-              <Plus className="size-4" /> Add Trade
+            <Link to="/trades/new" className="hidden items-center gap-1 bg-cta px-4 py-2 font-mono text-[10px] font-semibold uppercase sm:inline-flex">
+              <Plus className="size-4" /> New Entry
             </Link>
-            <div className="grid size-9 place-items-center rounded-full bg-logo text-xs font-bold text-primary-foreground ring-1 ring-border">{initials}</div>
-            <button onClick={signOut} aria-label="Sign out" className="rounded-full p-2 text-muted-foreground hover:bg-secondary hover:text-foreground">
+            <div className="grid size-9 place-items-center border border-primary/40 bg-primary/10 font-mono text-xs font-bold text-primary">{initials}</div>
+            <button onClick={signOut} aria-label="Sign out" className="border border-border p-2 text-muted-foreground hover:bg-secondary hover:text-foreground">
               <LogOut className="size-4" />
             </button>
           </div>
         </header>
-        <Outlet />
+        <main className="p-4 sm:p-6"><Outlet /></main>
+        <div className="flex h-6 items-center justify-between border-t border-border bg-primary/5 px-3 font-mono text-[8px] uppercase text-muted-foreground"><span>USER: {initials} · STATUS: AUTHENTICATED</span><span>REGION: NSE/BSE · GMT+5:30</span></div>
       </div>
     </div>
   );
