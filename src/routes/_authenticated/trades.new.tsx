@@ -8,7 +8,7 @@ import { EMOTIONS, EXCHANGES, SEGMENTS, SESSIONS, STRATEGIES, SYMBOL_SUGGESTIONS
 import { fmtINR2, fmtNum, fmtSigned } from "@/lib/format";
 
 export const Route = createFileRoute("/_authenticated/trades/new")({
-  validateSearch: (s: Record<string, unknown>) => ({ id: typeof s.id === "string" ? s.id : undefined }),
+  validateSearch: (s: Record<string, unknown>): { id?: string } => (typeof s["id"] === "string" ? { id: s["id"] } : {}),
   head: () => ({ meta: [{ title: "Add Trade — Alcove" }, { name: "description", content: "Log a new trade." }] }),
   component: AddTrade,
 });
