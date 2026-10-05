@@ -50,7 +50,7 @@ function Analytics() {
     symbol: groupBy(trades, (t) => t.symbol).slice(0, 10),
     strategy: groupBy(trades, (t) => t.strategy ?? "Untagged"),
     session: groupBy(trades, (t) => t.session),
-    day: groupBy(trades, (t) => DAYS[new Date(t.trade_date + "T00:00:00").getDay()]),
+    day: groupBy(trades, (t) => DAYS[new Date(t.trade_date + "T00:00:00").getDay()] ?? ""),
     direction: groupBy(trades, (t) => t.direction),
     emotion: groupBy(trades, (t) => t.emotion ?? "Not logged"),
     month: groupBy(trades, (t) => t.trade_date.slice(0, 7)).sort((a, b) => a.name.localeCompare(b.name)),

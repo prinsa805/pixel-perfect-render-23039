@@ -42,9 +42,9 @@ function Settings() {
 
   async function changePw(e: React.FormEvent) {
     e.preventDefault();
-    if (newPw.length < 6) return toast.error("At least 6 characters");
+    if (newPw.length < 6) { toast.error("At least 6 characters"); return; }
     const { error } = await supabase.auth.updateUser({ password: newPw, current_password: curPw } as never);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     setCurPw(""); setNewPw("");
     toast.success("Password changed");
   }
