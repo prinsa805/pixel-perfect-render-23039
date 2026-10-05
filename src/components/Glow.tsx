@@ -1,20 +1,16 @@
 export function Glow() {
   return (
-    <>
-      <div className="pointer-events-none fixed -top-32 -left-24 h-[560px] w-[560px] rounded-full bg-primary/10 blur-[130px]" />
-      <div className="pointer-events-none fixed top-40 -right-24 h-[520px] w-[520px] rounded-full bg-amber/10 blur-[130px]" />
-      <div className="pointer-events-none fixed bottom-0 left-1/3 h-[420px] w-[640px] rounded-full bg-up/10 blur-[150px]" />
-    </>
+    <div className="pointer-events-none fixed inset-0 opacity-30 [background:linear-gradient(90deg,transparent_49.9%,var(--border)_50%,transparent_50.1%),linear-gradient(transparent_49.9%,var(--border)_50%,transparent_50.1%)] [background-size:96px_96px]" />
   );
 }
 
 export function Logo() {
   return (
     <div className="flex items-center gap-3">
-      <div className="grid size-9 place-items-center rounded-xl bg-logo text-lg font-bold text-primary-foreground shadow-lg shadow-primary/20">A</div>
+      <div className="relative grid size-9 place-items-center border border-primary/50 bg-primary/10 font-mono text-sm font-bold text-primary before:absolute before:-top-px before:-left-px before:size-1.5 before:border-t before:border-l before:border-primary after:absolute after:-right-px after:-bottom-px after:size-1.5 after:border-r after:border-b after:border-primary">A</div>
       <div>
-        <div className="text-lg font-semibold tracking-tight">Alcove</div>
-        <div className="text-[11px] uppercase tracking-wide text-muted-foreground">trading journal · India</div>
+        <div className="font-mono text-sm font-bold uppercase text-foreground">ALCOVE<span className="text-primary">//</span></div>
+        <div className="font-mono text-[9px] uppercase tracking-[0.16em] text-muted-foreground">TRADING_CORE · INDIA</div>
       </div>
     </div>
   );
